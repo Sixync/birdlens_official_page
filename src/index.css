@@ -4,11 +4,9 @@
   line-height: 1.6;
   font-weight: 400;
 
-  color-scheme: light dark; /* Allows basic light/dark mode adaptation by browser */
-  /* color: rgba(255, 255, 255, 0.87); */
-  /* background-color: #242424; */
-  color: #333; /* Default text color for light mode */
-  background-color: #ffffff; /* Default background for light mode */
+  color-scheme: light dark;
+  color: #333;
+  background-color: #ffffff;
 
 
   font-synthesis: none;
@@ -16,46 +14,24 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  /* BirdLens Theme Colors (CSS Variables) */
   --birdlens-very-dark-green-base: #050F07;
   --birdlens-green-wave-1: #466043; /* Also ButtonGreen */
   --birdlens-green-wave-2: #7BA06A;
   --birdlens-green-wave-3: #6DCFA8;
   --birdlens-green-wave-4: #61FC7D;
   --birdlens-text-white: #FFFFFF;
-  --birdlens-card-background: rgba(0, 0, 0, 0.1); /* Lighter for website */
+  --birdlens-card-background: rgba(0, 0, 0, 0.1);
   --birdlens-search-bar-background: rgba(255, 255, 255, 0.15);
 }
-
-/* Dark Mode Specifics (Optional, if you want to implement a toggle later) */
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    color: rgba(255, 255, 255, 0.87);
-    background-color: var(--birdlens-very-dark-green-base);
-    --birdlens-card-background: rgba(0, 0, 0, 0.25);
-  }
-
-  body {
-    color: var(--birdlens-text-white);
-    background-color: var(--birdlens-very-dark-green-base);
-  }
-
-  .section {
-    background-color: rgba(255,255,255,0.05);
-  }
-   h1, h2, h3, p, li {
-    color: var(--birdlens-text-white);
-  }
-} */
 
 body {
   margin: 0;
   display: flex;
-  flex-direction: column; /* Changed from place-items */
+  flex-direction: column;
   min-width: 320px;
   min-height: 100vh;
-  background-color: var(--birdlens-very-dark-green-base); /* Use this as default page background */
-  color: var(--birdlens-text-white); /* Default text color for dark theme */
+  background-color: var(--birdlens-very-dark-green-base);
+  color: var(--birdlens-text-white);
 }
 
 #root {
@@ -64,16 +40,16 @@ body {
 
 a {
   font-weight: 500;
-  color: var(--birdlens-green-wave-3); /* Brighter link color */
+  color: var(--birdlens-green-wave-3);
   text-decoration: inherit;
 }
 a:hover {
-  color: var(--birdlens-green-wave-4); /* Even brighter on hover */
+  color: var(--birdlens-green-wave-4);
 }
 
 
 h1 {
-  font-size: 2.8em; /* Adjusted for landing page */
+  font-size: 2.8em;
   line-height: 1.1;
   font-weight: 700;
 }
@@ -83,19 +59,19 @@ h2 {
   margin-bottom: 0.8em;
 }
 
-button, .button { /* Added .button class for a-tags styled as buttons */
+button, .button {
   border-radius: 8px;
   border: 1px solid transparent;
-  padding: 0.8em 1.5em; /* Increased padding */
+  padding: 0.8em 1.5em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: var(--birdlens-green-wave-1); /* ButtonGreen */
+  background-color: var(--birdlens-green-wave-1);
   color: var(--birdlens-text-white);
   cursor: pointer;
   transition: background-color 0.25s, border-color 0.25s;
-  text-decoration: none; /* For a-tags styled as buttons */
-  display: inline-block; /* For a-tags styled as buttons */
+  text-decoration: none;
+  display: inline-block;
 }
 button:hover, .button:hover {
   background-color: var(--birdlens-green-wave-2);
@@ -105,14 +81,14 @@ button:focus,
 button:focus-visible,
 .button:focus,
 .button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color; /* Default focus outline */
+  outline: 4px auto -webkit-focus-ring-color;
 }
 
 .container {
   width: 90%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem 0;
+  padding: 2rem 0; /* Default padding, can be overridden */
 }
 
 .text-center {
@@ -120,14 +96,56 @@ button:focus-visible,
 }
 
 .section {
-  padding: 4rem 0;
+  padding: 3rem 0; /* Reduced default padding for sections */
 }
 
 .section-light {
-  background-color: #f9f9f9; /* For light sections on a dark page, or if switching themes */
-   background-color: rgba(255,255,255,0.03); /* Subtle dark theme variation */
+  background-color: rgba(255,255,255,0.03);
   color: var(--birdlens-text-white);
 }
-.section-light h1, .section-light h2, .section-light h3, .section-light p, .section-light li {
-  /* color: #333; */ /* Text color for light sections */
+
+/* --- Responsive Adjustments for index.css --- */
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.2em; /* Slightly smaller for tablets */
+  }
+  h2 {
+    font-size: 1.7em;
+  }
+  .container {
+    padding: 1.5rem 0; /* Adjust container padding */
+  }
+  .section {
+    padding: 2.5rem 0; /* Adjust section padding */
+  }
+  button, .button {
+    padding: 0.7em 1.2em;
+    font-size: 0.95em;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    line-height: 1.5; /* Slightly tighter line height on small mobiles */
+  }
+  h1 {
+    font-size: 1.8em; /* Smaller for mobile */
+  }
+  h2 {
+    font-size: 1.4em;
+  }
+  .container {
+    width: 95%; /* Use more screen width on mobile */
+    padding: 1rem 0;
+  }
+  .section {
+    padding: 2rem 0;
+  }
+  button, .button {
+    width: auto; /* Allow buttons to not be full-width by default */
+    max-width: 100%;
+    padding: 0.8em 1em; /* Adjust button padding for mobile */
+    font-size: 0.9em;
+  }
 }
