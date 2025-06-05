@@ -3,17 +3,17 @@
   margin: 0 auto;
   text-align: center;
 }
-
 /* Navbar */
 .navbar {
-  background-color: rgba(5, 15, 7, 0.8);
+  background-color: #f6f3ea; /* Your desired light color */
   padding: 1rem 0;
   position: fixed;
   width: 100%;
   top: 0;
   left: 0;
   z-index: 1000;
-  backdrop-filter: blur(5px);
+  /* backdrop-filter: blur(5px); Removed, as it's less effective/needed with an opaque light background */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Optional: add a subtle shadow for separation */
 }
 
 .navbar .container {
@@ -25,6 +25,8 @@
 
 .navbar-logo img {
   height: 35px; /* Slightly smaller logo */
+  /* If your logo is light and designed for dark backgrounds, you might need a different logo asset or CSS filter here.
+     Assuming your logo.png has a transparent background and is dark enough or has its own suitable background. */
 }
 
 .navbar-links {
@@ -32,7 +34,7 @@
 }
 
 .navbar-links a {
-  color: var(--birdlens-text-white);
+  color: var(--birdlens-very-dark-green-base); /* Changed to dark color for contrast */
   text-decoration: none;
   margin-left: 1.2rem; /* Adjusted margin */
   font-weight: 500;
@@ -41,8 +43,9 @@
 }
 
 .navbar-links a:hover {
-  color: var(--birdlens-green-wave-3);
+  color: var(--birdlens-green-wave-1); /* Adjusted hover color for better visibility on light bg */
 }
+
 
 
 /* Hero Section */
@@ -51,7 +54,8 @@
   background-size: cover;
   background-position: center;
   color: var(--birdlens-text-white);
-  padding: 8rem 1rem 4rem; /* Adjusted padding, especially top due to navbar */
+  padding: 8rem 1rem 4rem; /* Adjusted padding, top padding accounts for fixed navbar height */
+  margin-top: 60px; /* Add margin-top to hero to prevent overlap with fixed navbar. Adjust this value based on your navbar's actual height. */
   text-align: center;
   min-height: 70vh; /* Reduced min-height */
   display: flex;

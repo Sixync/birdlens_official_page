@@ -206,18 +206,3 @@ Contributing
 This is primarily managed by the BirdLens Vietnam team. If you are part of the team, please follow standard Git workflow practices.
 
 Thank you for checking out the BirdLens Vietnam official website project!
-
-**How to use this README:**
-
-1.  Save this content as `README.md` in the root of your `birdlen_official_page` directory.
-2.  **Replace `<your-repository-url>`** with the actual URL of your Git repository if you decide to host it on GitHub/GitLab/Bitbucket.
-3.  **Update APK version number:** In the "DownloadSection" part of `App.jsx` and potentially in the README, you might want to mention the current APK version (e.g., `Download BirdLens APK (v0.1 Alpha)`). Remember to update this as you release new APKs.
-4.  **Lean Startup Plan Link:** If you have your "BirdLens Vietnam: Realistic 3-Month Lean Startup Plan" document in a `docs` folder within this project or hosted online, update the link in the README.
-5.  **Contact Email:** Ensure the `mailto` link in `App.jsx` (Footer component) points to the correct email address.
-
-This README provides a good overview for anyone (including your future self or new team members) looking at the project.
-IGNORE_WHEN_COPYING_START
-content_copy
-download
-Use code with caution.
-IGNORE_WHEN_COPYING_END
