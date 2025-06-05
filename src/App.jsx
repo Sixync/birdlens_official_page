@@ -1,5 +1,5 @@
-/* eslint-disable no-unused-vars */
 // birdlen_official_page/src/App.jsx
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import './App.css';
@@ -56,6 +56,7 @@ function App() {
   const [scrollDirection, setScrollDirection] = useState(1);
   const isScrolling = useRef(false);
   const appContainerRef = useRef(null);
+  const touchStartY = useRef(0);
 
   const sectionComponents = [
     { id: "home", Component: HeroSection },
@@ -66,6 +67,19 @@ function App() {
     { id: "contact", Component: Footer },
   ];
 
+  const changeSection = (newIndex, direction) => {
+    if (isScrolling.current || newIndex === activeSectionIndex || newIndex < 0 || newIndex >= sectionComponents.length) return false;
+
+    isScrolling.current = true;
+    setScrollDirection(direction);
+    setActiveSectionIndex(newIndex);
+    setTimeout(() => {
+      isScrolling.current = false;
+    }, 700); // Animation duration + buffer
+    return true;
+  };
+
+
   useEffect(() => {
     const handleWheel = (event) => {
       if (isScrolling.current) return;
@@ -74,60 +88,77 @@ function App() {
       let direction = 0;
 
       if (event.deltaY > 5) {
-        newIndex = Math.min(activeSectionIndex + 1, sectionComponents.length - 1);
         direction = 1;
+        newIndex = Math.min(activeSectionIndex + 1, sectionComponents.length - 1);
       } else if (event.deltaY < -5) {
-        newIndex = Math.max(activeSectionIndex - 1, 0);
         direction = -1;
+        newIndex = Math.max(activeSectionIndex - 1, 0);
       }
 
       if (newIndex !== activeSectionIndex) {
-        event.preventDefault();
-        isScrolling.current = true;
-        setScrollDirection(direction);
-        setActiveSectionIndex(newIndex);
-        setTimeout(() => {
-          isScrolling.current = false;
-        }, 700);
+        if (changeSection(newIndex, direction)) {
+          event.preventDefault(); 
+        }
+      }
+    };
+
+    const handleTouchStart = (event) => {
+      if (isScrolling.current) return;
+      touchStartY.current = event.touches[0].clientY;
+    };
+
+    const handleTouchEnd = (event) => {
+      if (isScrolling.current) return;
+
+      const touchEndY = event.changedTouches[0].clientY;
+      const deltaY = touchStartY.current - touchEndY;
+      const swipeThreshold = 50; 
+
+      let newIndex = activeSectionIndex;
+      let direction = 0;
+
+      if (deltaY > swipeThreshold) { 
+        direction = 1;
+        newIndex = Math.min(activeSectionIndex + 1, sectionComponents.length - 1);
+      } else if (deltaY < -swipeThreshold) { 
+        direction = -1;
+        newIndex = Math.max(activeSectionIndex - 1, 0);
+      }
+      
+      if (newIndex !== activeSectionIndex) {
+         changeSection(newIndex, direction);
       }
     };
 
     const currentAppContainer = appContainerRef.current;
     if (currentAppContainer) {
       currentAppContainer.addEventListener('wheel', handleWheel, { passive: false });
+      currentAppContainer.addEventListener('touchstart', handleTouchStart, { passive: true });
+      currentAppContainer.addEventListener('touchend', handleTouchEnd, { passive: true });
     }
 
-    // Expose goToSection globally. Better with Context/State Management in larger apps.
     if (typeof window !== 'undefined') {
       window.globalGoToSection = (index) => {
-        if (isScrolling.current || index === activeSectionIndex || index < 0 || index >= sectionComponents.length) return;
-        isScrolling.current = true;
-        setScrollDirection(index > activeSectionIndex ? 1 : -1);
-        setActiveSectionIndex(index);
-        setTimeout(() => {
-          isScrolling.current = false;
-        }, 700);
+        const direction = index > activeSectionIndex ? 1 : -1;
+        changeSection(index, direction);
       };
     }
 
     return () => {
       if (currentAppContainer) {
         currentAppContainer.removeEventListener('wheel', handleWheel);
+        currentAppContainer.removeEventListener('touchstart', handleTouchStart);
+        currentAppContainer.removeEventListener('touchend', handleTouchEnd);
       }
       if (typeof window !== 'undefined') {
         delete window.globalGoToSection;
       }
     };
-  }, [activeSectionIndex, sectionComponents.length]); // Added sectionComponents.length to dependency array
+  }, [activeSectionIndex, sectionComponents.length]);
 
   const goToSection = (index) => {
-    if (isScrolling.current || index === activeSectionIndex || index < 0 || index >= sectionComponents.length) return;
-    isScrolling.current = true;
-    setScrollDirection(index > activeSectionIndex ? 1 : -1);
-    setActiveSectionIndex(index);
-    setTimeout(() => {
-      isScrolling.current = false;
-    }, 700);
+    const direction = index > activeSectionIndex ? 1 : -1;
+    changeSection(index, direction);
   };
 
   const ActiveComponent = sectionComponents[activeSectionIndex].Component;
@@ -142,6 +173,7 @@ function App() {
       <div
         ref={appContainerRef}
         className="app-scroll-container"
+        style={{ touchAction: 'pan-y' }} 
       >
         <AnimatePresence initial={false} custom={scrollDirection} mode="wait">
           <motion.div
@@ -194,7 +226,7 @@ function Navbar({ goToSection, activeSectionIndex, sectionIds }) {
   }, [isMobileMenuOpen]);
 
   const navLinks = [
-    { label: "Home", sectionId: "home" }, // Home usually links to first section
+    { label: "Home", sectionId: "home" }, 
     { label: "About", sectionId: "about" },
     { label: "Features", sectionId: "features" },
     { label: "Preview", sectionId: "preview" },
@@ -245,7 +277,7 @@ function HeroSection({ id }) {
   const handleDownloadClick = (e) => {
     e.preventDefault();
     if (typeof window !== 'undefined' && window.globalGoToSection) {
-      const downloadSectionIndex = 4; // Assuming "download" is the 5th section (index 4)
+      const downloadSectionIndex = 4; 
       window.globalGoToSection(downloadSectionIndex);
     }
   };
@@ -417,10 +449,9 @@ function Footer({ id }) {
     e.preventDefault();
     if (typeof window !== 'undefined' && window.globalGoToSection) {
       let targetIndex = -1;
-      if (sectionIdToGo === 'about') targetIndex = 1; // Assuming About is index 1
-      else if (sectionIdToGo === 'features') targetIndex = 2; // Assuming Features is index 2
-      // Add more else if for other footer links if needed
-
+      if (sectionIdToGo === 'about') targetIndex = 1; 
+      else if (sectionIdToGo === 'features') targetIndex = 2; 
+      
       if (targetIndex !== -1) {
         window.globalGoToSection(targetIndex);
       }
