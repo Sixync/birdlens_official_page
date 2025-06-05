@@ -2,6 +2,28 @@
 #root {
   margin: 0 auto;
   text-align: center;
+  height: 100%;
+  width: 100%;
+  overflow: hidden; /* Ensure root itself does not scroll */
+}
+
+.app-scroll-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden; /* This is crucial for section scrolling */
+}
+
+.motion-section-wrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  will-change: transform, opacity; /* Optimize for animation */
+  display: flex; /* Ensure section content is centered */
+  justify-content: center;
+  align-items: center;
 }
 
 /* Navbar */
@@ -21,50 +43,54 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0; /* Remove container specific padding, handled by navbar itself */
-  width: 100%; /* Ensure container uses full width of navbar for layout */
-  max-width: 1200px; /* Retain max-width for content centering */
-  margin: 0 auto; /* Center the container content */
+  padding: 0;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
+.navbar-logo {
+  flex-shrink: 0;
+}
 .navbar-logo img {
-  height: 35px; /* Desktop logo size */
+  height: 35px;
   vertical-align: middle;
 }
 
-/* Hamburger Toggler */
 .navbar-toggler {
-  display: none; /* Hidden on desktop */
+  display: none;
   background: none;
   border: none;
   padding: 0.25rem;
   cursor: pointer;
   flex-direction: column;
   justify-content: space-around;
-  width: 30px; /* Width of the hamburger icon */
-  height: 24px; /* Height of the hamburger icon */
-  z-index: 1001; /* Ensure it's above other elements if overlapping occurs */
+  width: 30px;
+  height: 24px;
+  z-index: 1001;
+  flex-shrink: 0;
 }
 
 .navbar-toggler-icon {
   display: block;
   width: 100%;
-  height: 3px; /* Thickness of hamburger lines */
+  height: 3px;
   background-color: var(--birdlens-very-dark-green-base);
   border-radius: 2px;
-  transition: all 0.3s ease-in-out;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Hamburger animation to X */
 .navbar-toggler.active .navbar-toggler-icon:nth-child(1) {
-  transform: translateY(8px) rotate(45deg); /* Adjust based on line height and spacing */
+  transform: translateY(8.5px) rotate(45deg);
 }
 .navbar-toggler.active .navbar-toggler-icon:nth-child(2) {
   opacity: 0;
   transform: translateX(-100%);
 }
 .navbar-toggler.active .navbar-toggler-icon:nth-child(3) {
-  transform: translateY(-8px) rotate(-45deg); /* Adjust based on line height and spacing */
+  transform: translateY(-8.5px) rotate(-45deg);
 }
 
 .navbar-links {
@@ -75,37 +101,38 @@
 .navbar-links a {
   color: var(--birdlens-very-dark-green-base);
   text-decoration: none;
-  margin-left: 1.5rem; /* Spacing for desktop */
+  margin-left: 1.5rem;
   font-weight: 500;
   font-size: 0.95rem;
-  transition: color 0.3s ease;
-  padding: 0.5rem 0; /* Vertical padding for better click area on desktop too */
+  transition: color 0.3s ease, font-weight 0.3s ease;
+  padding: 0.5rem 0;
+}
+.navbar-links a.active-link {
+  color: var(--birdlens-green-wave-1);
+  font-weight: 700;
 }
 
 .navbar-links a:first-child {
-  margin-left: 0; /* Remove margin for the first link if it's directly next to logo */
+  margin-left: 0;
 }
 
 .navbar-links a:hover {
   color: var(--birdlens-green-wave-1);
 }
 
-
 /* Hero Section */
 .hero {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/images/hero-bg.jpg');
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("/images/hero-bg.jpg");
   background-size: cover;
   background-position: center;
   color: var(--birdlens-text-white);
-  padding: 8rem 1rem 4rem;
-  text-align: center;
-  min-height: 70vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  /* Desktop Navbar height: padding (1rem*2=32px) + logo (35px) = ~67px */
-  margin-top: 67px; 
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+.hero.section {
+  padding-top: var(--navbar-height-desktop);
 }
 
 .hero h1 {
@@ -126,16 +153,28 @@
   font-size: 1rem;
 }
 
-
 /* Features Section */
-.features {
+.features.section {
   background-color: var(--birdlens-very-dark-green-base);
+  padding-top: var(--navbar-height-desktop); /* Offset for navbar */
 }
+
+.features-carousel-wrapper {
+  width: 100%;
+  max-width: 1100px; /* Match grid max-width for consistency */
+  overflow: hidden;
+  cursor: grab;
+  margin-top: 1rem; /* Reduced margin as section has padding */
+}
+
 .features-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
-  margin-top: 2rem;
+  width: 100%;
+  /* max-width: 1100px;  Handled by wrapper */
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .feature-item {
@@ -143,13 +182,15 @@
   padding: 1.5rem;
   border-radius: 12px;
   text-align: left;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
 }
 
 .feature-item:hover {
   transform: translateY(-5px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
 .feature-item svg {
@@ -166,13 +207,22 @@
 }
 .feature-item p {
   font-size: 0.95rem;
-  color: rgba(255,255,255,0.8);
+  color: rgba(255, 255, 255, 0.8);
+  flex-grow: 1;
 }
 
-
 /* App Preview Section */
-.app-preview {
+.app-preview.section {
   background-color: var(--birdlens-very-dark-green-base);
+  padding-top: var(--navbar-height-desktop); /* Offset for navbar */
+}
+
+.app-preview-carousel-wrapper {
+  width: 100%;
+  max-width: 1100px; /* Consistent max width */
+  overflow: hidden;
+  cursor: grab;
+  margin-top: 1rem;
 }
 
 .app-preview-images {
@@ -180,7 +230,6 @@
   justify-content: center;
   align-items: center;
   gap: 1.5rem;
-  margin-top: 2rem;
   flex-wrap: wrap;
 }
 
@@ -188,24 +237,26 @@
   max-width: 220px;
   height: auto;
   border-radius: 16px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease;
+  object-fit: cover;
 }
 
 .app-preview-images img:hover {
   transform: scale(1.05);
 }
 
-
 /* Download Section */
-.download-section {
-   background-color: var(--birdlens-green-wave-1);
-   color: var(--birdlens-text-white);
+.download-section.section {
+  background-color: var(--birdlens-green-wave-1);
+  color: var(--birdlens-text-white);
+  padding-top: var(--navbar-height-desktop);
 }
 .download-section .container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 .download-section h2 {
   color: var(--birdlens-text-white);
@@ -228,19 +279,22 @@
   margin-top: 1.5rem;
   font-size: 0.85rem;
   max-width: 90%;
-  color: rgba(255,255,255,0.85);
+  color: rgba(255, 255, 255, 0.85);
 }
-
 
 /* Footer */
-.footer {
+.footer.section {
   background-color: #030c05;
-  color: rgba(255,255,255,0.7);
-  padding: 2rem 0;
-  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+  justify-content: center;
 }
 .footer .container {
-  padding: 0 1rem;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: auto;
 }
 
 .footer-links {
@@ -250,7 +304,7 @@
   justify-content: center;
 }
 .footer-links a {
-  color: rgba(255,255,255,0.7);
+  color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
   margin: 0.3rem 0.7rem;
   transition: color 0.3s ease;
@@ -262,10 +316,12 @@
   width: 22px;
   height: 22px;
   margin: 0 0.4rem;
-  filter: invert(70%) sepia(10%) saturate(500%) hue-rotate(80deg) brightness(90%) contrast(90%);
+  filter: invert(70%) sepia(10%) saturate(500%) hue-rotate(80deg)
+    brightness(90%) contrast(90%);
 }
 .social-icons a:hover img {
-  filter: invert(90%) sepia(30%) saturate(1000%) hue-rotate(80deg) brightness(100%) contrast(100%);
+  filter: invert(90%) sepia(30%) saturate(1000%) hue-rotate(80deg)
+    brightness(100%) contrast(100%);
 }
 .footer p {
   font-size: 0.85rem;
@@ -274,72 +330,66 @@
 
 /* --- Responsive Adjustments for App.css --- */
 
-/* Tablet and smaller (max-width: 768px) */
 @media (max-width: 768px) {
   .navbar {
-    padding: 0.8rem 1rem; /* Smaller padding on mobile/tablet */
+    padding: 0.8rem 1rem;
   }
-
   .navbar-logo img {
-    height: 30px; /* Smaller logo on mobile/tablet */
+    height: 30px;
   }
-
   .navbar-toggler {
-    display: flex; /* Show toggler */
+    display: flex;
   }
 
   .navbar-links {
     position: absolute;
-    top: 100%; /* Position dropdown right below the navbar bar */
+    top: 100%;
     left: 0;
     right: 0;
     width: 100%;
-    background-color: #f6f3ea; /* Dropdown background */
+    background-color: #f6f3ea;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    
     flex-direction: column;
-    align-items: stretch; /* Stretch links to full width */
-    
+    align-items: stretch;
     max-height: 0;
     opacity: 0;
     overflow: hidden;
     visibility: hidden;
-    transition: max-height 0.35s ease-out, opacity 0.2s ease-in-out, visibility 0s linear 0.35s, padding 0.35s ease-out;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0.05s, visibility 0s linear 0.4s,
+      padding 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     padding-top: 0;
     padding-bottom: 0;
-    border-top: 1px solid rgba(0,0,0,0.05); /* Slight separator */
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
   }
-
   .navbar-links.active {
-    max-height: 300px; /* Adjust if more links are added, can be a larger value like 50vh */
+    max-height: 60vh;
     opacity: 1;
     visibility: visible;
-    transition: max-height 0.35s ease-out, opacity 0.3s ease-in-out 0.05s, visibility 0s linear 0s, padding 0.35s ease-out;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0.1s, visibility 0s linear 0s,
+      padding 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
   }
-
   .navbar-links a {
-    margin-left: 0; /* Reset desktop margin */
-    padding: 0.8rem 1.5rem; /* Padding for each link in dropdown */
+    margin-left: 0;
+    padding: 0.8rem 1.5rem;
     width: 100%;
-    text-align: left; /* Or center, depending on preference */
+    text-align: left;
     font-size: 1rem;
     box-sizing: border-box;
-    border-bottom: 1px solid #e9e6df; /* Softer separator for links */
+    border-bottom: 1px solid #e9e6df;
   }
   .navbar-links a:last-child {
     border-bottom: none;
   }
   .navbar-links a:hover {
-    background-color: #e9e6df; /* Slight hover effect for links in dropdown */
+    background-color: #e9e6df;
   }
 
-  .hero {
-    /* Tablet Navbar height: padding (0.8rem*2=~25.6px) + logo (30px) = ~55.6px */
-    margin-top: 56px; 
-    padding-top: 6rem; /* Original hero padding-top minus (original_navbar_height - mobile_navbar_height) */
-    padding-bottom: 3rem;
+  .hero.section {
+    padding-top: var(--navbar-height-tablet);
   }
   .hero h1 {
     font-size: 2.2rem;
@@ -349,11 +399,29 @@
     padding: 0 0.5rem;
   }
 
+  /* Sections get tablet navbar height padding */
+  .features.section,
+  .app-preview.section,
+  .download-section.section,
+  .footer.section {
+    padding-top: var(--navbar-height-tablet);
+  }
+
   .features-grid {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    padding: 0.5rem 0;
+    width: max-content;
+    max-width: none;
+    margin-left: 0;
+    margin-right: 0;
   }
   .feature-item {
+    flex: 0 0 auto;
+    width: 280px;
     padding: 1.2rem;
+    height: auto;
   }
   .feature-item h3 {
     font-size: 1.2rem;
@@ -363,13 +431,22 @@
   }
 
   .app-preview-images {
-    flex-direction: column;
-    gap: 1.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 1rem;
+    padding: 0.5rem 0;
+    flex-wrap: nowrap;
+    width: max-content;
   }
   .app-preview-images img {
-    max-width: 70%;
-    margin-bottom: 1rem;
+    flex: 0 0 auto;
+    width: 60vw;
+    max-width: 200px;
+    height: auto;
+    margin-bottom: 0;
   }
+
   .download-section h2 {
     font-size: 1.6rem;
   }
@@ -378,8 +455,6 @@
   }
 }
 
-
-/* Mobile specific (max-width: 480px) */
 @media (max-width: 480px) {
   .navbar {
     padding: 0.6rem 1rem;
@@ -387,13 +462,9 @@
   .navbar-logo img {
     height: 28px;
   }
-  
-  .hero {
-    /* Mobile Navbar height: padding (0.6rem*2=~19.2px) + logo (28px) = ~47.2px */
-    margin-top: 48px; 
-    padding-top: 5rem; /* Original hero padding-top minus (original_navbar_height - mobile_navbar_height) */
-    padding-bottom: 2rem;
-    min-height: 60vh;
+
+  .hero.section {
+    padding-top: var(--navbar-height-mobile);
   }
   .hero h1 {
     font-size: 1.9rem;
@@ -412,12 +483,28 @@
     padding: 0.7rem 1.2rem;
   }
 
+  /* Sections get mobile navbar height padding */
+  .features.section,
+  .app-preview.section,
+  .download-section.section,
+  .footer.section {
+    padding-top: var(--navbar-height-mobile);
+  }
+
+  .features-carousel-wrapper,
+  .app-preview-carousel-wrapper {
+    margin-top: 0.5rem; /* Reduce top margin for carousels on small screens */
+  }
+  .feature-item {
+    width: 250px;
+  }
   .feature-item h3 {
     font-size: 1.1rem;
   }
 
   .app-preview-images img {
-    max-width: 90%;
+    width: 70vw;
+    max-width: 180px;
   }
 
   .download-section h2 {

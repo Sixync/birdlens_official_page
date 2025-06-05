@@ -22,6 +22,16 @@
   --birdlens-text-white: #FFFFFF;
   --birdlens-card-background: rgba(0, 0, 0, 0.1);
   --birdlens-search-bar-background: rgba(255, 255, 255, 0.15);
+
+  /* Approximate Navbar Height for calculations if needed elsewhere */
+  --navbar-height-desktop: 67px;
+  --navbar-height-tablet: 56px;
+  --navbar-height-mobile: 48px;
+}
+
+html {
+  overflow: hidden; /* Prevent native scrollbars for the page */
+  height: 100%;
 }
 
 body {
@@ -30,12 +40,16 @@ body {
   flex-direction: column;
   min-width: 320px;
   min-height: 100vh;
+  height: 100vh; /* Ensure body takes full viewport height */
+  overflow: hidden; /* Prevent native scrollbars for the body */
   background-color: var(--birdlens-very-dark-green-base);
   color: var(--birdlens-text-white);
 }
 
 #root {
   width: 100%;
+  height: 100%; /* Ensure root takes full viewport height */
+  overflow: hidden; /* Prevent native scrollbars for root */
 }
 
 a {
@@ -88,7 +102,8 @@ button:focus-visible,
   width: 90%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem 0; /* Default padding, can be overridden */
+  padding: 2rem 0; /* Default padding, can be overridden by section specific needs */
+  box-sizing: border-box;
 }
 
 .text-center {
@@ -96,8 +111,19 @@ button:focus-visible,
 }
 
 .section {
-  padding: 3rem 0; /* Reduced default padding for sections */
+  /* This class is now more for semantic grouping inside a full-page slide */
+  /* padding will be handled by the SectionWrapper or individual section content */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center content vertically by default */
+  align-items: center; /* Center content horizontally by default */
+  box-sizing: border-box;
+  overflow-y: auto; /* Allow internal scrolling if content overflows */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
 }
+
 
 .section-light {
   background-color: rgba(255,255,255,0.03);
@@ -114,10 +140,7 @@ button:focus-visible,
     font-size: 1.7em;
   }
   .container {
-    padding: 1.5rem 0; /* Adjust container padding */
-  }
-  .section {
-    padding: 2.5rem 0; /* Adjust section padding */
+    padding: 1.5rem 1rem; /* Add horizontal padding for container on smaller screens */
   }
   button, .button {
     padding: 0.7em 1.2em;
@@ -137,10 +160,7 @@ button:focus-visible,
   }
   .container {
     width: 95%; /* Use more screen width on mobile */
-    padding: 1rem 0;
-  }
-  .section {
-    padding: 2rem 0;
+    padding: 1rem 0.5rem;  /* Adjust container padding for mobile */
   }
   button, .button {
     width: auto; /* Allow buttons to not be full-width by default */
