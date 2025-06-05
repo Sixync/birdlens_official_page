@@ -1,5 +1,6 @@
 // birdlen_official_page/src/App.jsx
-import './App.css'
+import React, { useState, useEffect, useRef } from 'react';
+import './App.css';
 
 // Simple SVG icons for features (replace with better ones or images if you have them)
 const BirdIcon = () => (
@@ -36,18 +37,59 @@ function App() {
 }
 
 function Navbar() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navRef = useRef(null);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
+
+  // Close menu if clicked outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (navRef.current && !navRef.current.contains(event.target)) {
+        closeMobileMenu();
+      }
+    };
+
+    if (isMobileMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isMobileMenuOpen]);
+
   return (
-    <nav className="navbar">
+    <nav className="navbar" ref={navRef}>
       <div className="container">
-        <a href="#" className="navbar-logo">
+        <a href="#home" className="navbar-logo" onClick={closeMobileMenu}>
           <img src="/images/logo.png" alt="BirdLens Logo" />
         </a>
-        <div className="navbar-links">
-          <a href="#about">About</a>
-          <a href="#features">Features</a>
-          <a href="#download">Download APK</a>
+        <button
+          className={`navbar-toggler ${isMobileMenuOpen ? 'active' : ''}`}
+          type="button"
+          aria-label="Toggle navigation"
+          aria-expanded={isMobileMenuOpen}
+          onClick={toggleMobileMenu}
+        >
+          <span className="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className={`navbar-links ${isMobileMenuOpen ? 'active' : ''}`}>
+          <a href="#about" onClick={closeMobileMenu}>About</a>
+          <a href="#features" onClick={closeMobileMenu}>Features</a>
+          <a href="#download" onClick={closeMobileMenu}>Download APK</a>
           {/* Link to Facebook page, which is a key channel */}
-          <a href="https://www.facebook.com/BirdLensVietnamOfficial" target="_blank" rel="noopener noreferrer">Facebook</a>
+          <a href="https://www.facebook.com/BirdLensVietnamOfficial" target="_blank" rel="noopener noreferrer" onClick={closeMobileMenu}>Facebook</a>
         </div>
       </div>
     </nav>
@@ -242,4 +284,4 @@ function Footer() {
   );
 }
 
-export default App
+export default App;
