@@ -1,0 +1,244 @@
+/* birdlen_official_page/src/App.css */
+#root {
+  /* max-width: 1280px; */ /* Removed to allow full width for sections */
+  margin: 0 auto;
+  /* padding: 2rem; */ /* Handled by sections now */
+  text-align: center;
+}
+
+/* Navbar */
+.navbar {
+  background-color: rgba(5, 15, 7, 0.8); /* Dark, slightly transparent */
+  padding: 1rem 0;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+}
+
+.navbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem; /* Adjusted padding for navbar container */
+}
+
+.navbar-logo img {
+  height: 40px;
+}
+
+.navbar-links a {
+  color: var(--birdlens-text-white);
+  text-decoration: none;
+  margin-left: 1.5rem;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.navbar-links a:hover {
+  color: var(--birdlens-green-wave-3);
+}
+
+/* Hero Section */
+.hero {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("/images/hero-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  color: var(--birdlens-text-white);
+  padding: 10rem 0 6rem; /* Extra padding-top due to fixed navbar */
+  text-align: center;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+  color: var(--birdlens-text-white);
+}
+.hero .subtitle {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 700px;
+}
+.hero .hero-cta {
+  margin-top: 1rem;
+}
+
+/* Features Section */
+.features {
+  background-color: var(
+    --birdlens-very-dark-green-base
+  ); /* Slightly off-main for depth */
+}
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.feature-item {
+  background-color: var(--birdlens-card-background);
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: left;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.feature-item svg {
+  /* For potential inline SVG icons */
+  width: 48px;
+  height: 48px;
+  margin-bottom: 1rem;
+  color: var(--birdlens-green-wave-2);
+}
+
+.feature-item h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--birdlens-green-wave-3);
+}
+.feature-item p {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* App Preview Section */
+.app-preview {
+  background-color: var(--birdlens-very-dark-green-base);
+}
+
+.app-preview-images {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 2rem;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+.app-preview-images img {
+  max-width: 250px;
+  height: auto;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.app-preview-images img:hover {
+  transform: scale(1.05);
+}
+
+/* Download Section */
+.download-section {
+  background-color: var(--birdlens-green-wave-1); /* Accent background */
+  color: var(--birdlens-text-white);
+}
+.download-section .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.download-section h2 {
+  color: var(--birdlens-text-white);
+}
+
+.download-section .button {
+  background-color: var(--birdlens-text-white);
+  color: var(--birdlens-green-wave-1);
+  font-size: 1.2rem;
+  padding: 1em 2em;
+}
+.download-section .button:hover {
+  background-color: #f0f0f0;
+}
+.download-instructions {
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  max-width: 600px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Footer */
+.footer {
+  background-color: #030c05; /* Darker than main background */
+  color: rgba(255, 255, 255, 0.7);
+  padding: 3rem 0;
+  text-align: center;
+}
+.footer .container {
+  padding: 0 2rem;
+}
+
+.footer-links {
+  margin-bottom: 1rem;
+}
+.footer-links a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  margin: 0 1rem;
+  transition: color 0.3s ease;
+}
+.footer-links a:hover {
+  color: var(--birdlens-green-wave-2);
+}
+.social-icons img {
+  width: 24px;
+  height: 24px;
+  margin: 0 0.5rem;
+  filter: invert(70%) sepia(10%) saturate(500%) hue-rotate(80deg)
+    brightness(90%) contrast(90%); /* Greenish tint for icons */
+}
+.social-icons a:hover img {
+  filter: invert(90%) sepia(30%) saturate(1000%) hue-rotate(80deg)
+    brightness(100%) contrast(100%);
+}
+.footer p {
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+  .hero .subtitle {
+    font-size: 1.2rem;
+  }
+  .navbar .container {
+    flex-direction: column;
+  }
+  .navbar-links {
+    margin-top: 1rem;
+  }
+  .navbar-links a {
+    margin: 0 0.5rem;
+    display: block;
+    text-align: center;
+    padding: 0.5rem 0;
+  }
+  .app-preview-images {
+    flex-direction: column;
+  }
+  .app-preview-images img {
+    max-width: 80%; /* Adjust for mobile */
+  }
+}
