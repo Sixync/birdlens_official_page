@@ -1,6 +1,5 @@
-/* birdlen_official_page/src/index.css */
 :root {
-  font-family: 'Poppins', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Poppins", system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.6;
   font-weight: 400;
 
@@ -8,29 +7,27 @@
   color: #333;
   background-color: #ffffff;
 
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --birdlens-very-dark-green-base: #050F07;
-  --birdlens-green-wave-1: #466043; /* Also ButtonGreen */
-  --birdlens-green-wave-2: #7BA06A;
-  --birdlens-green-wave-3: #6DCFA8;
-  --birdlens-green-wave-4: #61FC7D;
-  --birdlens-text-white: #FFFFFF;
+  --birdlens-very-dark-green-base: #050f07;
+  --birdlens-green-wave-1: #466043;
+  --birdlens-green-wave-2: #7ba06a;
+  --birdlens-green-wave-3: #6dcfa8;
+  --birdlens-green-wave-4: #61fc7d;
+  --birdlens-text-white: #ffffff;
   --birdlens-card-background: rgba(0, 0, 0, 0.1);
   --birdlens-search-bar-background: rgba(255, 255, 255, 0.15);
 
-  /* Approximate Navbar Height for calculations if needed elsewhere */
   --navbar-height-desktop: 67px;
   --navbar-height-tablet: 56px;
   --navbar-height-mobile: 48px;
 }
 
 html {
-  overflow: hidden; /* Prevent native scrollbars for the page */
+  overflow: hidden;
   height: 100%;
 }
 
@@ -40,16 +37,18 @@ body {
   flex-direction: column;
   min-width: 320px;
   min-height: 100vh;
-  height: 100vh; /* Ensure body takes full viewport height */
-  overflow: hidden; /* Prevent native scrollbars for the body */
-  background-color: var(--birdlens-very-dark-green-base);
+  height: 100vh;
+  overflow: hidden;
+  background-color: var(
+    --birdlens-very-dark-green-base
+  ); /* Overall page background */
   color: var(--birdlens-text-white);
 }
 
 #root {
   width: 100%;
-  height: 100%; /* Ensure root takes full viewport height */
-  overflow: hidden; /* Prevent native scrollbars for root */
+  height: 100%;
+  overflow: hidden;
 }
 
 a {
@@ -60,7 +59,6 @@ a {
 a:hover {
   color: var(--birdlens-green-wave-4);
 }
-
 
 h1 {
   font-size: 2.8em;
@@ -73,7 +71,8 @@ h2 {
   margin-bottom: 0.8em;
 }
 
-button, .button {
+button,
+.button {
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.8em 1.5em;
@@ -87,7 +86,8 @@ button, .button {
   text-decoration: none;
   display: inline-block;
 }
-button:hover, .button:hover {
+button:hover,
+.button:hover {
   background-color: var(--birdlens-green-wave-2);
   border-color: var(--birdlens-green-wave-4);
 }
@@ -102,8 +102,12 @@ button:focus-visible,
   width: 90%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem 0; /* Default padding, can be overridden by section specific needs */
+  padding: 2rem 0;
   box-sizing: border-box;
+  height: 100%; /* Allow container to define scroll height if needed by section */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Default, can be overridden */
 }
 
 .text-center {
@@ -111,38 +115,54 @@ button:focus-visible,
 }
 
 .section {
-  /* This class is now more for semantic grouping inside a full-page slide */
-  /* padding will be handled by the SectionWrapper or individual section content */
   width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center; /* Center content vertically by default */
-  align-items: center; /* Center content horizontally by default */
+  height: 100%; /* Full height of the motion wrapper */
+  display: flex; /* Changed from flex to allow direct child .container to manage flex if needed */
+  flex-direction: column; /* Ensures padding works as expected */
+  justify-content: center;
+  align-items: center;
   box-sizing: border-box;
-  overflow-y: auto; /* Allow internal scrolling if content overflows */
+  overflow-y: auto; /* THIS IS KEY for internal scrolling */
   -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  touch-action: pan-y; /* Allow vertical swipe for internal scroll */
+  padding: 0 1rem; /* Default horizontal padding */
 }
-
 
 .section-light {
-  background-color: rgba(255,255,255,0.03);
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.03
+  ); /* Original darkish overlay for light sections */
   color: var(--birdlens-text-white);
 }
-
-/* --- Responsive Adjustments for index.css --- */
+/* If a section with a light background is truly desired for contrast with dark text: */
+/*
+.section-truly-light {
+  background-color: #f0f3f0; 
+  color: var(--birdlens-very-dark-green-base);
+}
+.section-truly-light h1, .section-truly-light h2, .section-truly-light h3 {
+  color: var(--birdlens-very-dark-green-base);
+}
+*/
 
 @media (max-width: 768px) {
   h1 {
-    font-size: 2.2em; /* Slightly smaller for tablets */
+    font-size: 2.2em;
   }
   h2 {
     font-size: 1.7em;
   }
   .container {
-    padding: 1.5rem 1rem; /* Add horizontal padding for container on smaller screens */
+    padding: 1.5rem 0;
   }
-  button, .button {
+  .section {
+    padding: 0 1rem;
+  }
+  button,
+  .button {
     padding: 0.7em 1.2em;
     font-size: 0.95em;
   }
@@ -150,22 +170,26 @@ button:focus-visible,
 
 @media (max-width: 480px) {
   body {
-    line-height: 1.5; /* Slightly tighter line height on small mobiles */
+    line-height: 1.5;
   }
   h1 {
-    font-size: 1.8em; /* Smaller for mobile */
+    font-size: 1.8em;
   }
   h2 {
     font-size: 1.4em;
   }
   .container {
-    width: 95%; /* Use more screen width on mobile */
-    padding: 1rem 0.5rem;  /* Adjust container padding for mobile */
+    width: 100%;
+    padding: 1rem 0;
   }
-  button, .button {
-    width: auto; /* Allow buttons to not be full-width by default */
+  .section {
+    padding: 0 0.8rem;
+  }
+  button,
+  .button {
+    width: auto;
     max-width: 100%;
-    padding: 0.8em 1em; /* Adjust button padding for mobile */
+    padding: 0.8em 1em;
     font-size: 0.9em;
   }
 }
