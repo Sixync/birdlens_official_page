@@ -512,9 +512,9 @@ function AppPreviewSection({ id }) {
 
 function DownloadSection({ id }) {
   const { t } = useTranslation();
-  const apkVersion = "v0.1 Alpha";
-  const apkFileSize = "approx. 55MB";
-  const apkLastUpdated = "June 5, 2025";
+  const apkVersion = "v0.2 Beta";
+  const apkFileSize = "approx. 59MB";
+  const apkLastUpdated = "June 10, 2025";
 
   return (
     <section id={id} className="section download-section">
