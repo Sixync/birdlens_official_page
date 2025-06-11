@@ -512,7 +512,7 @@ function AppPreviewSection({ id }) {
 
 function DownloadSection({ id }) {
   const { t } = useTranslation();
-  const apkVersion = "v0.2 Beta";
+  const apkVersion = "v0.2.1 Beta";
   const apkFileSize = "approx. 59MB";
   const apkLastUpdated = "June 10, 2025";
 
