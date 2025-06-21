@@ -1,0 +1,88 @@
+{
+  "navbar": {
+    "home": "Trang Chủ",
+    "mapDemo": "Demo Bản Đồ",
+    "about": "Giới Thiệu",
+    "features": "Tính Năng",
+    "preview": "Xem Trước",
+    "download": "Tải APK",
+    "contact": "Liên Hệ",
+    "facebook": "Facebook"
+  },
+  "hero": {
+    "title": "Khám Phá Kỳ Quan Chim Việt Nam Cùng BirdLens",
+    "subtitle": "Cẩm nang bỏ túi giúp bạn nhận diện các loài chim, khám phá các điểm nóng thiên nhiên và kết nối với những người cùng đam mê. Được xây dựng bởi sinh viên, dành cho sinh viên và những người yêu thiên nhiên trên khắp Việt Nam!",
+    "cta": "Tải BirdLens APK"
+  },
+  "aboutSection": {
+    "title": "BirdLens là gì?",
+    "paragraph": "BirdLens Việt Nam là một ứng dụng di động được thiết kế để giúp sinh viên, những người đam mê thiên nhiên và những người mới tập chơi chim dễ dàng nhận diện và tìm hiểu về đời sống chim đa dạng của Việt Nam. Sứ mệnh của chúng tôi là nuôi dưỡng sự trân trọng sâu sắc hơn đối với thiên nhiên thông qua công nghệ, sự tham gia của cộng đồng và nội dung giáo dục dễ tiếp cận. Chúng tôi bắt đầu tinh gọn, tập trung vào các tính năng cốt lõi và phát triển cùng với cơ sở người dùng, chủ yếu tương tác thông qua các quan hệ đối tác với trường đại học và trang Facebook chính thức của chúng tôi.",
+    "whyDownloadTitle": "Tại sao nên tải APK?",
+    "reasons": [
+      "Truy cập sớm các tính năng và cải tiến mới nhất.",
+      "Trở thành một phần của cộng đồng đang phát triển của chúng tôi ngay từ đầu.",
+      "Cung cấp phản hồi trực tiếp để giúp định hình tương lai của BirdLens.",
+      "Hoàn toàn miễn phí! Chúng tôi phân phối qua APK để mọi người đều có thể tiếp cận."
+    ]
+  },
+  "featuresSection": {
+    "title": "Tính Năng Ứng Dụng",
+    "items": [
+      {
+        "title": "Nhận Dạng Chim",
+        "description": "Dễ dàng nhận dạng các loài chim xung quanh bạn. (Mục tiêu: Tải ảnh lên để nhận dạng - Hoàn thành Hành động Chính ≥ 40%)"
+      },
+      {
+        "title": "Khám Phá Điểm Nóng",
+        "description": "Khám phá các điểm xem chim địa phương và xem các ghi nhận gần đây được cung cấp bởi dữ liệu eBird."
+      },
+      {
+        "title": "Trung Tâm Cộng Đồng",
+        "description": "Chia sẻ ảnh chim của bạn, kết nối với những người yêu thiên nhiên khác và tham gia các thử thách."
+      },
+      {
+        "title": "Tour & Sự Kiện",
+        "description": "Luôn cập nhật các tour xem chim và sự kiện địa phương."
+      },
+      {
+        "title": "Học Hỏi & Khám Phá",
+        "description": "Truy cập các mẹo nhận dạng, thông tin về các loài chim Việt Nam và nội dung giáo dục."
+      },
+      {
+        "title": "Tính Năng Cao Cấp (Sắp có)",
+        "description": "Mở khóa các tính năng nâng cao với gói đăng ký 'ExBird' của chúng tôi."
+      }
+    ]
+  },
+  "mapDemoSection": {
+    "title": "Khám Phá Bản Đồ Tương Tác",
+    "description": "Xem cách BirdLens sử dụng công nghệ bản đồ để giúp bạn khám phá các điểm nóng xem chim, xem các ghi nhận gần đây do cộng đồng báo cáo và điều hướng thế giới chim chóc xung quanh bạn một cách hiệu quả.",
+    "videoNotSupported": "Trình duyệt của bạn không hỗ trợ thẻ video.",
+    "videoCaption": "Xem nhanh bản demo các tính năng bản đồ tương tác của chúng tôi."
+  },
+  "appPreviewSection": {
+    "title": "Xem Trước Bên Trong BirdLens"
+  },
+  "downloadSection": {
+    "title": "Sẵn Sàng Bắt Đầu Hành Trình Xem Chim Của Bạn?",
+    "subtitle": "Tải xuống APK BirdLens Việt Nam ngay bây giờ và tham gia cộng đồng của chúng tôi!",
+    "versionInfo": "Phiên bản: {{version}}",
+    "sizeInfo": "Kích thước: {{size}}",
+    "lastUpdatedInfo": "Cập nhật lần cuối: {{date}}",
+    "downloadButton": "Tải BirdLens APK ({{version}})",
+    "noteTitle": "Lưu ý:",
+    "noteText": "Vì đây là tệp APK, bạn có thể cần bật \"Cài đặt từ các nguồn không xác định\" trong cài đặt Android của mình. Đây là một bước tiêu chuẩn để cài đặt các ứng dụng bên ngoài Play Store. Chúng tôi đảm bảo ứng dụng của chúng tôi an toàn.",
+    "earlyAdopterText": "Hãy trở thành người dùng sớm và giúp chúng tôi phát triển cộng đồng những người đam mê thiên nhiên tại Việt Nam!"
+  },
+  "footer": {
+    "aboutUs": "Về Chúng Tôi",
+    "featuresLink": "Tính Năng",
+    "contactEmail": "Email Liên Hệ",
+    "copyright": "© {{year}} BirdLens Việt Nam. Mọi quyền được bảo lưu.",
+    "tagline": "Một dự án do sinh viên dẫn dắt tập trung vào thiên nhiên và công nghệ."
+  },
+  "lang": {
+    "en": "ANH",
+    "vi": "VI"
+  }
+}

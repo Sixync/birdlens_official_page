@@ -1,0 +1,88 @@
+{
+  "navbar": {
+    "home": "Home",
+    "mapDemo": "Map Demo",
+    "about": "About",
+    "features": "Features",
+    "preview": "Preview",
+    "download": "Download APK",
+    "contact": "Contact",
+    "facebook": "Facebook"
+  },
+  "hero": {
+    "title": "Discover Vietnam's Avian Wonders with BirdLens",
+    "subtitle": "Your pocket guide to identifying birds, exploring nature hotspots, and connecting with fellow enthusiasts. Built by students, for students and nature lovers across Vietnam!",
+    "cta": "Download BirdLens APK"
+  },
+  "aboutSection": {
+    "title": "What is BirdLens?",
+    "paragraph": "BirdLens Vietnam is a mobile application designed to help students, nature enthusiasts, and aspiring birdwatchers easily identify and learn about the diverse birdlife of Vietnam. Our mission is to foster a deeper appreciation for nature through technology, community engagement, and accessible educational content. We are starting lean, focusing on core features and growing with our user base, primarily engaging through university partnerships and our official Facebook page.",
+    "whyDownloadTitle": "Why Download the APK?",
+    "reasons": [
+      "Get early access to the latest features and improvements.",
+      "Be part of our growing community from the very beginning.",
+      "Provide direct feedback to help shape the future of BirdLens.",
+      "It's free! We're distributing via APK to make it accessible to everyone."
+    ]
+  },
+  "featuresSection": {
+    "title": "App Features",
+    "items": [
+      {
+        "title": "Bird Identification",
+        "description": "Easily identify birds around you. (Target: Upload a photo for identification - Key Action Completion ≥ 40%)"
+      },
+      {
+        "title": "Explore Hotspots",
+        "description": "Discover local birding hotspots and see recent sightings powered by eBird data."
+      },
+      {
+        "title": "Community Hub",
+        "description": "Share your bird photos, connect with fellow nature lovers, and participate in challenges."
+      },
+      {
+        "title": "Tours & Events",
+        "description": "Stay updated on local birdwatching tours and events."
+      },
+      {
+        "title": "Learn & Discover",
+        "description": "Access identification tips, facts about Vietnamese birds, and educational content."
+      },
+      {
+        "title": "Premium Features (Soon)",
+        "description": "Unlock advanced features with our 'ExBird' subscription."
+      }
+    ]
+  },
+  "mapDemoSection": {
+    "title": "Explore the Interactive Map",
+    "description": "See how BirdLens utilizes map technology to help you discover birding hotspots, view recent sightings reported by the community, and navigate the avian world around you effectively.",
+    "videoNotSupported": "Your browser does not support the video tag.",
+    "videoCaption": "Watch a quick preview of our interactive map features in action."
+  },
+  "appPreviewSection": {
+    "title": "Take a Peek Inside BirdLens"
+  },
+  "downloadSection": {
+    "title": "Ready to Start Your Birdwatching Journey?",
+    "subtitle": "Download the BirdLens Vietnam APK now and join our community!",
+    "versionInfo": "Version: {{version}}",
+    "sizeInfo": "Size: {{size}}",
+    "lastUpdatedInfo": "Last Updated: {{date}}",
+    "downloadButton": "Download BirdLens APK ({{version}})",
+    "noteTitle": "Note:",
+    "noteText": "Since this is an APK file, you might need to enable \"Install from Unknown Sources\" in your Android settings. This is a standard step for installing apps outside the Play Store. We assure you our app is safe.",
+    "earlyAdopterText": "Become an early adopter and help us grow our community of nature enthusiasts in Vietnam!"
+  },
+  "footer": {
+    "aboutUs": "About Us",
+    "featuresLink": "Features",
+    "contactEmail": "Contact Email",
+    "copyright": "© {{year}} BirdLens Vietnam. All rights reserved.",
+    "tagline": "A student-led project focused on nature and technology."
+  },
+  "lang": {
+    "en": "EN",
+    "vi": "VI"
+  }
+}
