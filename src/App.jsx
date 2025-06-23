@@ -5,6 +5,9 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import './App.css';
 import { Routes, Route, useSearchParams, useNavigate } from 'react-router-dom';
+import ProtectedRoute from './components/ProtectedRoute';
+import LoginPage from './pages/Login';
+import AdminDashboard from './pages/AdminDashboard';
 
 // --- Icon Components (from original App.jsx) ---
 const BirdIcon = () => (
@@ -23,7 +26,7 @@ const CommunityIcon = () => (
   </svg>
 );
 
-// --- Section Components (from original App.jsx) ---
+// --- Section Components ---
 function HeroSection({ id }) {
   const { t } = useTranslation();
   const handleDownloadClick = (e) => {
@@ -104,7 +107,7 @@ function FeaturesSection({ id }) {
       title: feature.title,
       description: feature.description
     })) : [];
-  
+
     const carouselRef = useRef(null);
     const [carouselWidth, setCarouselWidth] = useState(0);
     useEffect(() => {
@@ -114,7 +117,7 @@ function FeaturesSection({ id }) {
       const timeoutId = setTimeout(calculateWidth, 100);
       return () => { window.removeEventListener('resize', calculateWidth); clearTimeout(timeoutId); };
     }, [featuresList, i18n.language]);
-  
+
     return (
       <section id={id} className="section features">
         <div className="container">
@@ -132,7 +135,7 @@ function FeaturesSection({ id }) {
       </section>
     );
   }
-  
+
 function AppPreviewSection({ id }) {
     const { t, i18n } = useTranslation();
     const images = ["/images/app-feature-1.png","/images/app-feature-2.png","/images/app-feature-3.png",];
@@ -145,7 +148,7 @@ function AppPreviewSection({ id }) {
       const timeoutId = setTimeout(calculateWidth, 100);
       return () => { window.removeEventListener('resize', calculateWidth); clearTimeout(timeoutId); };
     }, [images, i18n.language]);
-  
+
     return (
       <section id={id} className="section app-preview section-light">
         <div className="container">
@@ -161,7 +164,7 @@ function AppPreviewSection({ id }) {
       </section>
     );
 }
-  
+
 function DownloadSection({ id }) {
     const { t } = useTranslation();
     const apkVersion = "v0.2.3 Beta";
@@ -252,7 +255,7 @@ function Footer({ id }) {
     );
 }
 
-// --- Section Config (from original App.jsx) ---
+// --- Section Config ---
 const SECTION_COMPONENTS_CONFIG = [
   { id: "home", Component: HeroSection },
   { id: "map-demo", Component: MapDemoSection },
@@ -301,10 +304,7 @@ const ResetPasswordPage = () => {
         setIsLoading(true);
 
         try {
-            // Logic Change: Use HTTPS for the API call.
-            // It's also better practice to use an environment variable for the base URL.
-            // For example: const API_BASE_URL = import.meta.env.VITE_API_URL;
-            const response = await fetch('https://birdlens.duckdns.org/auth/reset-password', {
+            const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/auth/reset-password`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -321,9 +321,9 @@ const ResetPasswordPage = () => {
                 throw new Error(data.message || `An error occurred: ${response.statusText}`);
             }
 
-            setMessage('Your password has been reset successfully! You will be redirected shortly.');
+            setMessage('Your password has been reset successfully! You will be redirected to the login page shortly.');
             setTimeout(() => {
-                navigate('/');
+                navigate('/login');
             }, 5000);
 
         } catch (err) {
@@ -369,7 +369,7 @@ const ResetPasswordPage = () => {
     );
 };
 
-// =================== ORIGINAL APP (NOW LANDING PAGE) ===================
+// =================== LANDING PAGE COMPONENT ===================
 const LandingPage = () => {
     const [activeSectionIndex, setActiveSectionIndex] = useState(0);
     const [scrollDirection, setScrollDirection] = useState(1);
@@ -481,12 +481,32 @@ const LandingPage = () => {
     );
 };
 
-// =================== NEW APP ROUTER ===================
+// =================== MAIN APP ROUTER ===================
 function App() {
   return (
       <Routes>
         <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
+        <Route 
+          path="/admin" 
+          element={
+            <ProtectedRoute>
+              <AdminDashboard />
+            </ProtectedRoute>
+          } 
+        />
+        {/* You can add more admin routes inside the ProtectedRoute as well */}
+        {/* For example:
+        <Route 
+          path="/admin/users" 
+          element={
+            <ProtectedRoute>
+              <UserManagementPage />
+            </ProtectedRoute>
+          } 
+        /> 
+        */}
       </Routes>
   );
 }

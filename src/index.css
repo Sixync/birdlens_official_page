@@ -1,3 +1,9 @@
+/* birdlen_official_page/src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Your existing CSS variables and styles are preserved below */
 :root {
   font-family: "Poppins", system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.6;
@@ -140,7 +146,7 @@ button:focus-visible,
 /* If a section with a light background is truly desired for contrast with dark text: */
 /*
 .section-truly-light {
-  background-color: #f0f3f0; 
+  background-color: #f0f3f0;
   color: var(--birdlens-very-dark-green-base);
 }
 .section-truly-light h1, .section-truly-light h2, .section-truly-light h3 {
