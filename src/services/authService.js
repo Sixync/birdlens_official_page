@@ -1,4 +1,4 @@
-// birdlen_official_page/src/services/authService.js
+// file: birdlen_official_page/src/services/authService.js
 import { post } from './apiService';
 
 /**
