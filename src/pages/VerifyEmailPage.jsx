@@ -58,10 +58,12 @@ export default function VerifyEmailPage() {
                     <Result
                         status="success"
                         title="Email Verified Successfully!"
-                        subTitle="You can now log in to your account."
+                        // Updated subtitle to be more generic and not lead to login.
+                        subTitle="Your account has been activated. You can now close this page."
                         extra={[
-                            <Button type="primary" key="login" onClick={() => navigate('/login')}>
-                                Go to Login
+                            // Replaced "Go to Login" with "Back to Home".
+                            <Button type="primary" key="home" onClick={() => navigate('/')}>
+                                Back to Home
                             </Button>,
                         ]}
                     />
