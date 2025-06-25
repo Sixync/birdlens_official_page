@@ -1,5 +1,5 @@
-// file: birdlen_official_page/src/services/authService.js
-import { post } from './apiService';
+// birdlen_official_page/src/services/authService.js
+import { get, post } from './apiService';
 
 /**
  * Logs a user in by sending their credentials to the backend.
@@ -39,6 +39,17 @@ export const forgotPassword = (email) => {
 export const resetPassword = (token, newPassword) => {
   return post('/auth/reset-password', { token, new_password: newPassword });
 };
+
+/**
+ * Verifies a user's email using a token and user ID from the URL.
+ * @param {string} token The verification token.
+ * @param {string} userId The ID of the user to verify.
+ * @returns {Promise<any>} A promise that resolves on success.
+ */
+export const verifyEmail = (token, userId) => {
+  return get(`/auth/verify-email?token=${token}&user_id=${userId}`);
+};
+
 
 /**
  * Refreshes an access token.
