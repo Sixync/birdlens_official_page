@@ -12,13 +12,12 @@ import { AuthProvider } from './context/AuthContext'; // Import the AuthProvider
 const queryClient = new QueryClient();
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <AuthProvider> {/* Wrap the App with AuthProvider */}
-          <App />
-        </AuthProvider>
-      </BrowserRouter>
-    </QueryClientProvider>
-  </StrictMode>,
+
+  <QueryClientProvider client={queryClient}>
+    <BrowserRouter>
+      <AuthProvider> {/* Wrap the App with AuthProvider */}
+        <App />
+      </AuthProvider>
+    </BrowserRouter>
+  </QueryClientProvider>,
 );
