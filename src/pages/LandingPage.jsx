@@ -169,6 +169,35 @@ function DownloadSection({ id }) {
     const apkVersion = "v0.2.3 Beta";
     const apkFileSize = "approx. 80MB";
     const apkLastUpdated = "June 20, 2025";
+    const apkDownloadUrl = "/app-release.apk"; // Centralized URL for the APK
+    const appDeepLink = "birdlens://open"; // The custom scheme defined in AndroidManifest.xml
+
+    /**
+     * Logic: Handles the click on the main CTA button.
+     * It detects if the user is on an Android device. If so, it tries to open the app via deep link.
+     * If the app doesn't open after 2.5 seconds, it falls back to downloading the APK file.
+     * For non-Android users, it directly triggers the APK download.
+     */
+    const handleOpenOrDownload = (event) => {
+        event.preventDefault();
+        const isAndroid = /Android/i.test(navigator.userAgent);
+
+        if (isAndroid) {
+            // Try to open the app via deep link
+            window.location.href = appDeepLink;
+            
+            // Fallback to the APK download if the app isn't installed.
+            // The timeout gives the browser time to switch to the app. If it doesn't,
+            // the user is still on the page, and this code will execute.
+            setTimeout(() => {
+                window.location.href = apkDownloadUrl;
+            }, 2500);
+        } else {
+            // For non-Android users, just start the download.
+            window.location.href = apkDownloadUrl;
+        }
+    };
+
     return (
         <section id={id} className="section download-section">
         <div className="container">
@@ -179,7 +208,10 @@ function DownloadSection({ id }) {
             <p style={{ fontSize: "0.9rem", margin: "0.2rem 0" }}>{t('downloadSection.sizeInfo', { size: apkFileSize })}</p>
             <p style={{ fontSize: "0.9rem", margin: "0.2rem 0" }}>{t('downloadSection.lastUpdatedInfo', { date: apkLastUpdated })}</p>
             </div>
-            <a href="/app-release.apk" download className="button">{t('downloadSection.downloadButton', { version: apkVersion })}</a>
+            {/* Logic: The button now calls handleOpenOrDownload instead of having a direct href */}
+            <a href="#" onClick={handleOpenOrDownload} className="button">
+                {t('downloadSection.downloadButton', { version: apkVersion })}
+            </a>
             <div className="download-instructions">
             <p><strong>{t('downloadSection.noteTitle')}</strong> {t('downloadSection.noteText')}</p>
             <p>{t('downloadSection.earlyAdopterText')}</p>
