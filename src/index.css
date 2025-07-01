@@ -1,4 +1,3 @@
-/* birdlen_official_page/src/index.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -110,7 +109,6 @@ button:focus-visible,
   margin: 0 auto;
   padding: 2rem 0;
   box-sizing: border-box;
-  height: 100%; /* Allow container to define scroll height if needed by section */
   display: flex;
   flex-direction: column;
   justify-content: center; /* Default, can be overridden */
