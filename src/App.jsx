@@ -6,19 +6,22 @@ import LoginPage from './pages/Login';
 import AdminDashboard from './pages/AdminDashboard';
 import LandingPage from './pages/LandingPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
-import VerifyEmailPage from './pages/VerifyEmailPage'; // Import the new verification page
+import VerifyEmailPage from './pages/VerifyEmailPage';
 import AdminLayout from './components/admin/AdminLayout';
 import TourList from "./pages/admin/tours/TourList"
 import CreateTour from './pages/admin/tours/CreateTour';
 import EditTour from './pages/admin/tours/EditTour';
+// Import the new component for the download route.
+import DownloadPage from './pages/DownloadPage';
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
+      {/* This new route will handle the automatic download. */}
+      <Route path="/download" element={<DownloadPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/reset-password" element={<ResetPasswordPage />} />
-      {/* Add the route for email verification */}
       <Route path="/auth/verify-email" element={<VerifyEmailPage />} />
 
       {/* Admin Routes */}

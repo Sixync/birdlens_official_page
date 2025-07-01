@@ -10,7 +10,7 @@ import Footer from '../components/Footer';
 // --- Icon Components ---
 const BirdIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="48" height="48">
-      <path d="M22 5.5C22 4.12 20.88 3 19.5 3S17 4.12 17 5.5c0 .05.01.1.01.15L12 11.28l-5.01-5.63C6.99 5.6 7 5.55 7 5.5C7 4.12 5.88 3 4.5 3S2 4.12 2 5.5c0 1.06.63 1.96 1.5 2.31V10c0 1.1.9 2 2 2h1c.55 0 1 .45 1 1v4c0 .55-.45 1-1 1H4c-1.1 0-2-.9-2-2v-1.5C2.63 13.04 2 12.14 2 11V8.85c-.01-.05-.01-.1-.01-.15C1.99 7.65 2 7.6 2 7.59V7c0-2.21 1.79-4 4-4s4 1.79 4 4v10.5c0 .05-.01.1-.01.15L12 11.28l1.01 1.14L12 13.56l-2.2-2.47c-.38-.43-.99-.51-1.48-.19-.57.38-.74 1.18-.36 1.75l3.29 4.7L10.25 19H7.72c-.35 0-.68.11-.95.32l-2.4 1.71C4.02 21.29 4 21.66 4 22c0 .55.45 1 1 1h14c.55 0 1-.45 1-1 0-.34-.02-.71-.37-0.97l-2.4-1.71c-.27-.21-.6-.32-.95-.32h-2.53l-1.04-1.75 3.29-4.7c.38-.57.21-1.37-.36-1.75-.49-.32-1.1-.24-1.48.19L12 13.56l-1.01-1.14.01-.15V7c0-2.21 1.79-4 4-4s4 1.79 4 4v1.59c0 .01 0 .06.01.11.01.05.01.1.01.15V11c0 1.14-.63 2.04-1.5 2.31V15c0 1.1-.9 2-2 2h-1c-.55 0-1-.45-1-1v-4c0-.55.45-1 1-1h1c1.1 0 2-.9 2-2V7.85c.87-.35 1.5-1.25 1.5-2.35z" />
+      <path d="M22 5.5C22 4.12 20.88 3 19.5 3S17 4.12 17 5.5c0 .05.01.1.01.15L12 11.28l-5.01-5.63C6.99 5.6 7 5.55 7 5.5C7 4.12 5.88 3 4.5 3S2 4.12 2 5.5c0 1.06.63 1.96 1.5 2.31V10c0 1.1.9 2 2 2h1c.55 0 1 .45 1 1v4c0 .55-.45 1-1 1H4c-1.1 0-2-.9-2-2v-1.5C2.63 13.04 2 12.14 2 11V8.85c-.01-.05-.01-.1-.01-.15C1.99 7.65 2 7.6 2 7.59V7c0-2.21 1.79-4 4-4s4 1.79 4 4v10.5c0 .05-.01.1-.01.15L12 11.28l1.01 1.14L12 13.56l-2.2-2.47c-.38-.43-.99-.51-1.48-.19-.57.38-.74 1.18-.36 1.75l3.29 4.7L10.25 19H7.72c-.35 0-.68.11-.95.32l-2.4 1.71C4.02 21.29 4 21.66 4 22c0 .55.45 1 1 1h14c.55 0 1-.45 1-1 0-.34-.02-.71-.37-0.97l-2.4-1.71c-.27-.21-.6-.32-.95-.32h-2.53l-1.04-1.75l3.29-4.7c.38-.57.21-1.37-.36-1.75-.49-.32-1.1-.24-1.48.19L12 13.56l-1.01-1.14.01-.15V7c0-2.21 1.79-4 4-4s4 1.79 4 4v1.59c0 .01 0 .06.01.11.01.05.01.1.01.15V11c0 1.14-.63 2.04-1.5 2.31V15c0 1.1-.9 2-2 2h-1c-.55 0-1-.45-1-1v-4c0-.55.45-1 1-1h1c1.1 0 2-.9 2-2V7.85c.87-.35 1.5-1.25 1.5-2.35z" />
     </svg>
   );
 const MapIcon = () => (
@@ -166,35 +166,36 @@ function AppPreviewSection({ id }) {
 
 function DownloadSection({ id }) {
     const { t } = useTranslation();
-    const apkVersion = "v0.2.3 Beta";
+    // Update the version number as requested.
+    const apkVersion = "v2.03";
     const apkFileSize = "approx. 80MB";
     const apkLastUpdated = "June 20, 2025";
-    const apkDownloadUrl = "/app-release.apk"; // Centralized URL for the APK
-    const appDeepLink = "birdlens://open"; // The custom scheme defined in AndroidManifest.xml
+    // The actual file in your /public folder remains the same.
+    const apkSourceUrl = "/app-release.apk";
+    // This is the filename the user's browser will save the file as.
+    const downloadFileName = `birdlens ${apkVersion}.apk`;
+    const appDeepLink = "birdlens://open";
 
-    /**
-     * Logic: Handles the click on the main CTA button.
-     * It detects if the user is on an Android device. If so, it tries to open the app via deep link.
-     * If the app doesn't open after 2.5 seconds, it falls back to downloading the APK file.
-     * For non-Android users, it directly triggers the APK download.
-     */
     const handleOpenOrDownload = (event) => {
         event.preventDefault();
         const isAndroid = /Android/i.test(navigator.userAgent);
 
+        const triggerDownload = () => {
+            const link = document.createElement('a');
+            link.href = apkSourceUrl;
+            link.setAttribute('download', downloadFileName);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        };
+
         if (isAndroid) {
-            // Try to open the app via deep link
             window.location.href = appDeepLink;
-            
-            // Fallback to the APK download if the app isn't installed.
-            // The timeout gives the browser time to switch to the app. If it doesn't,
-            // the user is still on the page, and this code will execute.
             setTimeout(() => {
-                window.location.href = apkDownloadUrl;
+                triggerDownload();
             }, 2500);
         } else {
-            // For non-Android users, just start the download.
-            window.location.href = apkDownloadUrl;
+            triggerDownload();
         }
     };
 
@@ -208,8 +209,8 @@ function DownloadSection({ id }) {
             <p style={{ fontSize: "0.9rem", margin: "0.2rem 0" }}>{t('downloadSection.sizeInfo', { size: apkFileSize })}</p>
             <p style={{ fontSize: "0.9rem", margin: "0.2rem 0" }}>{t('downloadSection.lastUpdatedInfo', { date: apkLastUpdated })}</p>
             </div>
-            {/* Logic: The button now calls handleOpenOrDownload instead of having a direct href */}
-            <a href="#" onClick={handleOpenOrDownload} className="button">
+            {/* The button's href can point to the source URL for non-JS users, but onClick handles the dynamic filename */}
+            <a href={apkSourceUrl} onClick={handleOpenOrDownload} className="button">
                 {t('downloadSection.downloadButton', { version: apkVersion })}
             </a>
             <div className="download-instructions">
