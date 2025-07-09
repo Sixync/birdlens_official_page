@@ -7,17 +7,19 @@ import './index.css';
 import App from './App.jsx';
 import './i18n'; // Import to initialize i18next
 import { AuthProvider } from './context/AuthContext'; // Import the AuthProvider
+import { HelmetProvider } from 'react-helmet-async'; // Import HelmetProvider
 
 // Create a client
 const queryClient = new QueryClient();
 
 createRoot(document.getElementById('root')).render(
-
-  <QueryClientProvider client={queryClient}>
-    <BrowserRouter>
-      <AuthProvider> {/* Wrap the App with AuthProvider */}
-        <App />
-      </AuthProvider>
-    </BrowserRouter>
-  </QueryClientProvider>,
+  <HelmetProvider> {/* Wrap the entire application */}
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <AuthProvider>
+          <App />
+        </AuthProvider>
+      </BrowserRouter>
+    </QueryClientProvider>
+  </HelmetProvider>
 );

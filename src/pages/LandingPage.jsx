@@ -3,7 +3,8 @@ import React, { useState, useEffect, useRef } from 'react';
 // eslint-disable-next-line no-unused-vars
 import { AnimatePresence, motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import '../App.css'; // We will keep the CSS file for styling
+import { Helmet } from 'react-helmet-async'; // Import Helmet
+import '../App.css'; 
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
@@ -241,12 +242,26 @@ const sectionVariants = {
 
 // --- Landing Page Component ---
 export default function LandingPage() {
+    const { t } = useTranslation();
     const [activeSectionIndex, setActiveSectionIndex] = useState(0);
     const [scrollDirection, setScrollDirection] = useState(1);
     const isScrolling = useRef(false);
     const appContainerRef = useRef(null);
     const touchStartY = useRef(0);
     const { i18n } = useTranslation();
+
+    // Logic: Define JSON-LD structured data for the main website and organization.
+    // This helps Google understand your site as an entity.
+    const organizationSchema = {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "BirdLens Vietnam",
+      "url": "https://birdlens.netlify.app/",
+      "logo": "https://birdlens.netlify.app/images/logo.png",
+      "sameAs": [
+        "https://www.facebook.com/BirdLensVietnamOfficial"
+      ]
+    };
   
     const changeSection = (newIndex, direction) => {
       if (isScrolling.current || newIndex === activeSectionIndex || newIndex < 0 || newIndex >= SECTION_COMPONENTS_CONFIG.length) {
@@ -363,6 +378,14 @@ export default function LandingPage() {
   
     return (
       <>
+        {/* Logic: Add Helmet component for dynamic meta tags and structured data */}
+        <Helmet>
+            <title>{t('hero.title')}</title>
+            <meta name="description" content={t('hero.subtitle')} />
+            <script type="application/ld+json">
+                {JSON.stringify(organizationSchema)}
+            </script>
+        </Helmet>
         <Navbar 
             goToSection={goToSection} 
             activeSectionIndex={activeSectionIndex} 
@@ -385,4 +408,4 @@ export default function LandingPage() {
         </div>
       </>
     );
-  }
+}

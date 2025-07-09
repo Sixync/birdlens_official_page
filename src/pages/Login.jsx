@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async'; // Import Helmet
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -25,35 +26,42 @@ export default function LoginPage() {
   };
 
   return (
-    <div style={styles.container}>
-      <div style={styles.card}>
-        <h2 style={styles.title}>Admin Login</h2>
-        {error && <p style={styles.error}>{error}</p>}
-        <form onSubmit={handleSubmit} style={styles.form}>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email"
-            required
-            style={styles.input}
-          />
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
-            required
-            style={styles.input}
-          />
-          <button type="submit" disabled={loading} style={styles.button}>
-            {loading ? 'Logging In...' : 'Log In'}
-          </button>
-        </form>
-        <Link to="/reset-password" style={styles.link}>Forgot Password?</Link>
-        <Link to="/" style={styles.link}>Back to Home</Link>
+    <>
+      {/* Logic: Add Helmet to set a specific title and a noindex tag */}
+      <Helmet>
+        <title>Admin Login - BirdLens</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
+      <div style={styles.container}>
+        <div style={styles.card}>
+          <h2 style={styles.title}>Admin Login</h2>
+          {error && <p style={styles.error}>{error}</p>}
+          <form onSubmit={handleSubmit} style={styles.form}>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email"
+              required
+              style={styles.input}
+            />
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+              required
+              style={styles.input}
+            />
+            <button type="submit" disabled={loading} style={styles.button}>
+              {loading ? 'Logging In...' : 'Log In'}
+            </button>
+          </form>
+          <Link to="/reset-password" style={styles.link}>Forgot Password?</Link>
+          <Link to="/" style={styles.link}>Back to Home</Link>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

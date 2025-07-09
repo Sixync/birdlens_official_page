@@ -1,0 +1,13 @@
+# Tell all web crawlers the rules for accessing the site.
+User-agent: *
+
+# Allow crawlers to access all parts of the site by default.
+Allow: /
+
+# Disallow crawlers from accessing the admin application.
+# It has no SEO value and should not be indexed.
+Disallow: /admin/
+
+# Provide the location of the sitemap.
+# This should point to the dynamic sitemap endpoint on your Go backend.
+Sitemap: https://birdlens.netlify.app/api/sitemap.xml
