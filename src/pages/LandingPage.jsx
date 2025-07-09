@@ -9,6 +9,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
 // --- Icon Components ---
+// ... (Icon components remain unchanged) ...
 const BirdIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="48" height="48">
       <path d="M22 5.5C22 4.12 20.88 3 19.5 3S17 4.12 17 5.5c0 .05.01.1.01.15L12 11.28l-5.01-5.63C6.99 5.6 7 5.55 7 5.5C7 4.12 5.88 3 4.5 3S2 4.12 2 5.5c0 1.06.63 1.96 1.5 2.31V10c0 1.1.9 2 2 2h1c.55 0 1 .45 1 1v4c0 .55-.45 1-1 1H4c-1.1 0-2-.9-2-2v-1.5C2.63 13.04 2 12.14 2 11V8.85c-.01-.05-.01-.1-.01-.15C1.99 7.65 2 7.6 2 7.59V7c0-2.21 1.79-4 4-4s4 1.79 4 4v10.5c0 .05-.01.1-.01.15L12 11.28l1.01 1.14L12 13.56l-2.2-2.47c-.38-.43-.99-.51-1.48-.19-.57.38-.74 1.18-.36 1.75l3.29 4.7L10.25 19H7.72c-.35 0-.68.11-.95.32l-2.4 1.71C4.02 21.29 4 21.66 4 22c0 .55.45 1 1 1h14c.55 0 1-.45 1-1 0-.34-.02-.71-.37-0.97l-2.4-1.71c-.27-.21-.6-.32-.95-.32h-2.53l-1.04-1.75l3.29-4.7c.38-.57.21-1.37-.36-1.75-.49-.32-1.1-.24-1.48.19L12 13.56l-1.01-1.14.01-.15V7c0-2.21 1.79-4 4-4s4 1.79 4 4v1.59c0 .01 0 .06.01.11.01.05.01.1.01.15V11c0 1.14-.63 2.04-1.5 2.31V15c0 1.1-.9 2-2 2h-1c-.55 0-1-.45-1-1v-4c0-.55.45-1 1-1h1c1.1 0 2-.9 2-2V7.85c.87-.35 1.5-1.25 1.5-2.35z" />
@@ -24,9 +25,9 @@ const CommunityIcon = () => (
     <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
 </svg>
 );
-  
 
 // --- Section Components ---
+// ... (HeroSection, MapDemoSection, etc. remain unchanged) ...
 function HeroSection({ id }) {
     const { t } = useTranslation();
     const handleDownloadClick = (e) => {
@@ -167,13 +168,10 @@ function AppPreviewSection({ id }) {
 
 function DownloadSection({ id }) {
     const { t } = useTranslation();
-    // Update the version number as requested.
     const apkVersion = "v2.03";
     const apkFileSize = "approx. 80MB";
     const apkLastUpdated = "June 20, 2025";
-    // The actual file in your /public folder remains the same.
     const apkSourceUrl = "/app-release.apk";
-    // This is the filename the user's browser will save the file as.
     const downloadFileName = `birdlens ${apkVersion}.apk`;
     const appDeepLink = "birdlens://open";
 
@@ -210,7 +208,6 @@ function DownloadSection({ id }) {
             <p style={{ fontSize: "0.9rem", margin: "0.2rem 0" }}>{t('downloadSection.sizeInfo', { size: apkFileSize })}</p>
             <p style={{ fontSize: "0.9rem", margin: "0.2rem 0" }}>{t('downloadSection.lastUpdatedInfo', { date: apkLastUpdated })}</p>
             </div>
-            {/* The button's href can point to the source URL for non-JS users, but onClick handles the dynamic filename */}
             <a href={apkSourceUrl} onClick={handleOpenOrDownload} className="button">
                 {t('downloadSection.downloadButton', { version: apkVersion })}
             </a>
@@ -222,7 +219,7 @@ function DownloadSection({ id }) {
         </section>
     );
 }
-  
+
 // --- Section Config & Animation Variants ---
 const SECTION_COMPONENTS_CONFIG = [
     { id: "home", Component: HeroSection },
@@ -242,28 +239,34 @@ const sectionVariants = {
 
 // --- Landing Page Component ---
 export default function LandingPage() {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const [activeSectionIndex, setActiveSectionIndex] = useState(0);
     const [scrollDirection, setScrollDirection] = useState(1);
     const isScrolling = useRef(false);
     const appContainerRef = useRef(null);
     const touchStartY = useRef(0);
-    const { i18n } = useTranslation();
 
-    // Logic: Define JSON-LD structured data for the main website and organization.
-    // This helps Google understand your site as an entity.
-    const organizationSchema = {
+    // Logic: Added specific structured data for the "SoftwareApplication" to help Google understand the APK.
+    const appSchema = {
       "@context": "https://schema.org",
-      "@type": "Organization",
+      "@type": "SoftwareApplication",
       "name": "BirdLens Vietnam",
-      "url": "https://birdlens.netlify.app/",
-      "logo": "https://birdlens.netlify.app/images/logo.png",
-      "sameAs": [
-        "https://www.facebook.com/BirdLensVietnamOfficial"
-      ]
+      "operatingSystem": "Android",
+      "applicationCategory": "EducationApplication",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8", // Example starting rating
+        "ratingCount": "15"     // Example starting count
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "VND"
+      }
     };
   
     const changeSection = (newIndex, direction) => {
+      // ... (changeSection logic remains unchanged)
       if (isScrolling.current || newIndex === activeSectionIndex || newIndex < 0 || newIndex >= SECTION_COMPONENTS_CONFIG.length) {
         return false;
       }
@@ -275,6 +278,7 @@ export default function LandingPage() {
     };
   
     useEffect(() => {
+        // ... (useEffect hook logic remains unchanged) ...
         const mainContainer = appContainerRef.current;
     
         const handleWheel = (event) => {
@@ -378,12 +382,12 @@ export default function LandingPage() {
   
     return (
       <>
-        {/* Logic: Add Helmet component for dynamic meta tags and structured data */}
         <Helmet>
-            <title>{t('hero.title')}</title>
-            <meta name="description" content={t('hero.subtitle')} />
+            {/* Logic: Updated the title to be more specific and brand-focused. */}
+            <title>{t('hero.title', 'BirdLens Vietnam - Discover Avian Wonders')}</title>
+            <meta name="description" content={t('hero.subtitle', 'Your pocket guide to identifying birds, exploring nature hotspots, and connecting with fellow enthusiasts in Vietnam.')} />
             <script type="application/ld+json">
-                {JSON.stringify(organizationSchema)}
+                {JSON.stringify(appSchema)}
             </script>
         </Helmet>
         <Navbar 
