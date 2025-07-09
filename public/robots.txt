@@ -10,4 +10,4 @@ Disallow: /admin/
 
 # Provide the location of the sitemap.
 # This should point to the dynamic sitemap endpoint on your Go backend.
-Sitemap: https://birdlens.netlify.app/api/sitemap.xml
+Sitemap: https://birdlens.netlify.app/sitemap.xml
