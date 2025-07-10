@@ -1,34 +1,33 @@
+/* eslint-disable no-unused-vars */
 // file: birdlen_official_page/src/pages/LandingPage.jsx
 import React, { useState, useEffect, useRef } from 'react';
-// eslint-disable-next-line no-unused-vars
 import { AnimatePresence, motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { Helmet } from 'react-helmet-async'; // Import Helmet
+import { Helmet } from 'react-helmet-async';
+import { useSearchParams } from 'react-router-dom';
 import '../App.css'; 
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
-// --- Icon Components ---
-// ... (Icon components remain unchanged) ...
+// --- Icon Components (No Changes) ---
 const BirdIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="48" height="48">
       <path d="M22 5.5C22 4.12 20.88 3 19.5 3S17 4.12 17 5.5c0 .05.01.1.01.15L12 11.28l-5.01-5.63C6.99 5.6 7 5.55 7 5.5C7 4.12 5.88 3 4.5 3S2 4.12 2 5.5c0 1.06.63 1.96 1.5 2.31V10c0 1.1.9 2 2 2h1c.55 0 1 .45 1 1v4c0 .55-.45 1-1 1H4c-1.1 0-2-.9-2-2v-1.5C2.63 13.04 2 12.14 2 11V8.85c-.01-.05-.01-.1-.01-.15C1.99 7.65 2 7.6 2 7.59V7c0-2.21 1.79-4 4-4s4 1.79 4 4v10.5c0 .05-.01.1-.01.15L12 11.28l1.01 1.14L12 13.56l-2.2-2.47c-.38-.43-.99-.51-1.48-.19-.57.38-.74 1.18-.36 1.75l3.29 4.7L10.25 19H7.72c-.35 0-.68.11-.95.32l-2.4 1.71C4.02 21.29 4 21.66 4 22c0 .55.45 1 1 1h14c.55 0 1-.45 1-1 0-.34-.02-.71-.37-0.97l-2.4-1.71c-.27-.21-.6-.32-.95-.32h-2.53l-1.04-1.75l3.29-4.7c.38-.57.21-1.37-.36-1.75-.49-.32-1.1-.24-1.48.19L12 13.56l-1.01-1.14.01-.15V7c0-2.21 1.79-4 4-4s4 1.79 4 4v1.59c0 .01 0 .06.01.11.01.05.01.1.01.15V11c0 1.14-.63 2.04-1.5 2.31V15c0 1.1-.9 2-2 2h-1c-.55 0-1-.45-1-1v-4c0-.55.45-1 1-1h1c1.1 0 2-.9 2-2V7.85c.87-.35 1.5-1.25 1.5-2.35z" />
     </svg>
-  );
+);
 const MapIcon = () => (
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="48" height="48">
-    <path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.12V5l6 2.12V19z" />
-</svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="48" height="48">
+        <path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.12V5l6 2.12V19z" />
+    </svg>
 );
 const CommunityIcon = () => (
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="48" height="48">
-    <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
-</svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="48" height="48">
+        <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
+    </svg>
 );
 
 // --- Section Components ---
-// ... (HeroSection, MapDemoSection, etc. remain unchanged) ...
-function HeroSection({ id }) {
+function HeroSection({ id, referralCode }) {
     const { t } = useTranslation();
     const handleDownloadClick = (e) => {
         e.preventDefault();
@@ -41,6 +40,12 @@ function HeroSection({ id }) {
     };
     return (
         <section className="hero section" id={id}>
+        {referralCode && (
+            <div style={{ padding: '1rem', backgroundColor: 'rgba(70, 96, 67, 0.8)', borderRadius: '8px', marginBottom: '1.5rem', border: '1px solid var(--birdlens-green-wave-2)' }}>
+                <p style={{ margin: 0, fontWeight: 'bold' }}>A friend has invited you!</p>
+                <p style={{ margin: '0.25rem 0 0 0', fontSize: '0.9rem' }}>Welcome to BirdLens, referred by {referralCode}.</p>
+            </div>
+        )}
         <h1>{t('hero.title')}</h1>
         <p className="subtitle">{t('hero.subtitle')}</p>
         <a href="#download" className="button hero-cta" onClick={handleDownloadClick}>
@@ -166,6 +171,7 @@ function AppPreviewSection({ id }) {
     );
 }
 
+// Logic: This section is updated to provide two clear actions instead of one ambiguous one.
 function DownloadSection({ id }) {
     const { t } = useTranslation();
     const apkVersion = "v2.03";
@@ -175,52 +181,46 @@ function DownloadSection({ id }) {
     const downloadFileName = `birdlens ${apkVersion}.apk`;
     const appDeepLink = "birdlens://open";
 
-    const handleOpenOrDownload = (event) => {
+    const handleDownload = (event) => {
         event.preventDefault();
-        const isAndroid = /Android/i.test(navigator.userAgent);
-
-        const triggerDownload = () => {
-            const link = document.createElement('a');
-            link.href = apkSourceUrl;
-            link.setAttribute('download', downloadFileName);
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        };
-
-        if (isAndroid) {
-            window.location.href = appDeepLink;
-            setTimeout(() => {
-                triggerDownload();
-            }, 2500);
-        } else {
-            triggerDownload();
-        }
+        const link = document.createElement('a');
+        link.href = apkSourceUrl;
+        link.setAttribute('download', downloadFileName);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     };
 
     return (
         <section id={id} className="section download-section">
-        <div className="container">
-            <h2>{t('downloadSection.title')}</h2>
-            <p style={{ marginBottom: "1rem", maxWidth: "700px" }}>{t('downloadSection.subtitle')}</p>
-            <div style={{ marginBottom: "1.5rem" }}>
-            <p style={{ fontSize: "0.9rem", margin: "0.2rem 0" }}>{t('downloadSection.versionInfo', { version: apkVersion })}</p>
-            <p style={{ fontSize: "0.9rem", margin: "0.2rem 0" }}>{t('downloadSection.sizeInfo', { size: apkFileSize })}</p>
-            <p style={{ fontSize: "0.9rem", margin: "0.2rem 0" }}>{t('downloadSection.lastUpdatedInfo', { date: apkLastUpdated })}</p>
+            <div className="container">
+                <h2>{t('downloadSection.title')}</h2>
+                <p style={{ marginBottom: "1rem", maxWidth: "700px" }}>{t('downloadSection.subtitle')}</p>
+                <div style={{ marginBottom: "1.5rem" }}>
+                    <p style={{ fontSize: "0.9rem", margin: "0.2rem 0" }}>{t('downloadSection.versionInfo', { version: apkVersion })}</p>
+                    <p style={{ fontSize: "0.9rem", margin: "0.2rem 0" }}>{t('downloadSection.sizeInfo', { size: apkFileSize })}</p>
+                    <p style={{ fontSize: "0.9rem", margin: "0.2rem 0" }}>{t('downloadSection.lastUpdatedInfo', { date: apkLastUpdated })}</p>
+                </div>
+                
+                {/* New two-button layout */}
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', width: '100%', maxWidth: '350px' }}>
+                    <a href={appDeepLink} className="button" style={{ width: '100%' }}>
+                        Open App
+                    </a>
+                    <a href={apkSourceUrl} onClick={handleDownload} className="button">
+                        {t('downloadSection.downloadButton', { version: apkVersion })}
+                    </a>
+                </div>
+
+                <div className="download-instructions">
+                    <p><strong>{t('downloadSection.noteTitle')}</strong> {t('downloadSection.noteText')}</p>
+                    <p>{t('downloadSection.earlyAdopterText')}</p>
+                </div>
             </div>
-            <a href={apkSourceUrl} onClick={handleOpenOrDownload} className="button">
-                {t('downloadSection.downloadButton', { version: apkVersion })}
-            </a>
-            <div className="download-instructions">
-            <p><strong>{t('downloadSection.noteTitle')}</strong> {t('downloadSection.noteText')}</p>
-            <p>{t('downloadSection.earlyAdopterText')}</p>
-            </div>
-        </div>
         </section>
     );
 }
 
-// --- Section Config & Animation Variants ---
 const SECTION_COMPONENTS_CONFIG = [
     { id: "home", Component: HeroSection },
     { id: "map-demo", Component: MapDemoSection },
@@ -237,7 +237,6 @@ const sectionVariants = {
     exit: (direction) => ({ zIndex: 0, y: direction < 0 ? "80vh" : "-80vh", scale: 0.8, opacity: 0, transition: { y: { type: "spring", stiffness: 100, damping: 20, mass: 0.7 }, scale: { duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }, opacity: { duration: 0.25, ease: "circIn" } } }),
 };
 
-// --- Landing Page Component ---
 export default function LandingPage() {
     const { t, i18n } = useTranslation();
     const [activeSectionIndex, setActiveSectionIndex] = useState(0);
@@ -245,8 +244,9 @@ export default function LandingPage() {
     const isScrolling = useRef(false);
     const appContainerRef = useRef(null);
     const touchStartY = useRef(0);
-
-    // Logic: Added specific structured data for the "SoftwareApplication" to help Google understand the APK.
+    const [searchParams] = useSearchParams();
+    const referralCode = searchParams.get('ref');
+  
     const appSchema = {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
@@ -255,8 +255,8 @@ export default function LandingPage() {
       "applicationCategory": "EducationApplication",
       "aggregateRating": {
         "@type": "AggregateRating",
-        "ratingValue": "4.8", // Example starting rating
-        "ratingCount": "15"     // Example starting count
+        "ratingValue": "4.8",
+        "ratingCount": "15"
       },
       "offers": {
         "@type": "Offer",
@@ -266,7 +266,6 @@ export default function LandingPage() {
     };
   
     const changeSection = (newIndex, direction) => {
-      // ... (changeSection logic remains unchanged)
       if (isScrolling.current || newIndex === activeSectionIndex || newIndex < 0 || newIndex >= SECTION_COMPONENTS_CONFIG.length) {
         return false;
       }
@@ -278,7 +277,6 @@ export default function LandingPage() {
     };
   
     useEffect(() => {
-        // ... (useEffect hook logic remains unchanged) ...
         const mainContainer = appContainerRef.current;
     
         const handleWheel = (event) => {
@@ -383,7 +381,6 @@ export default function LandingPage() {
     return (
       <>
         <Helmet>
-            {/* Logic: Updated the title to be more specific and brand-focused. */}
             <title>{t('hero.title', 'BirdLens Vietnam - Discover Avian Wonders')}</title>
             <meta name="description" content={t('hero.subtitle', 'Your pocket guide to identifying birds, exploring nature hotspots, and connecting with fellow enthusiasts in Vietnam.')} />
             <script type="application/ld+json">
@@ -406,7 +403,7 @@ export default function LandingPage() {
               exit="exit" 
               className="motion-section-wrapper"
             >
-              <ActiveComponent id={SECTION_COMPONENTS_CONFIG[activeSectionIndex].id} />
+              <ActiveComponent id={SECTION_COMPONENTS_CONFIG[activeSectionIndex].id} referralCode={referralCode} />
             </motion.div>
           </AnimatePresence>
         </div>
