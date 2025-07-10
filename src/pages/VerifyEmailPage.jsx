@@ -58,12 +58,17 @@ export default function VerifyEmailPage() {
                     <Result
                         status="success"
                         title="Email Verified Successfully!"
-                        // Updated subtitle to be more generic and not lead to login.
-                        subTitle="Your account has been activated. You can now close this page."
+                        // Logic: The subtitle and button are updated to guide the user back to the mobile app.
+                        // The primary button now uses the 'birdlens://open' deep link.
+                        subTitle="Your account is now active. You can now return to the app."
                         extra={[
-                            // Replaced "Go to Login" with "Back to Home".
-                            <Button type="primary" key="home" onClick={() => navigate('/')}>
-                                Back to Home
+                            <a href="birdlens://open" key="open_app">
+                                <Button type="primary" size="large">
+                                    Open BirdLens App
+                                </Button>
+                            </a>,
+                            <Button key="home" onClick={() => navigate('/')} style={{ marginTop: '1rem' }}>
+                                Back to Website Home
                             </Button>,
                         ]}
                     />
